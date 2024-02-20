@@ -1,0 +1,5 @@
+NONCOLOR = '\x1b[0m'
+GREEN = '\x1b[92m'
+BLUE = '\x1b[94m'
+YELLOW = '\x1b[93m'
+RED = '\x1b[91m'
