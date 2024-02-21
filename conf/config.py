@@ -1,6 +1,6 @@
 from configparser import ConfigParser
 
-from common_functions.funcs_1 import colprint
+from common_functions.funcs_1 import color_print
 from sup.adress import DATABASE_INI_PATH
 
 

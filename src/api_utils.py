@@ -8,7 +8,7 @@ import requests
 from sup.adress import WORK_JSON_PATH
 
 
-def get_employers_data(firms: list[str], per_page: int = 10) -> list[dict]:
+def get_employers_data(firms: list[str], per_page: int = 12) -> list[dict]:
     vac_url = 'https://api.hh.ru/vacancies'
 
     data = []
@@ -31,6 +31,7 @@ def get_employers_data(firms: list[str], per_page: int = 10) -> list[dict]:
     # return response
     return data
 
+## _____________________________________________ TestCase
 
 firms = ['169209',  # ГУД ВУД
          '64174',  # 2ГИС
@@ -42,7 +43,7 @@ firms = ['169209',  # ГУД ВУД
          '1066018',  # Брусника
          ]
 
-dt = get_employers_data(firms)
+# dt = get_employers_data(firms)
 
 # pprint(dt,
 #        indent=1,
@@ -52,8 +53,8 @@ dt = get_employers_data(firms)
 #        sort_dicts=False
 #        )
 
-with open(WORK_JSON_PATH, mode='w', encoding='utf-8') as file:
-    json.dump(dt, file, ensure_ascii=False, indent=4)
+# with open(WORK_JSON_PATH, mode='w', encoding='utf-8') as file:
+#     json.dump(dt, file, ensure_ascii=False, indent=4)
 
 
 # for i in dt:

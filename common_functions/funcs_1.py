@@ -1,7 +1,7 @@
 from sup.constants import NONCOLOR, YELLOW, GREEN
 
 
-def colprint(date: list) -> None:
+def color_print(date: list) -> None:
     """Печать словарей из списка"""
 
     if isinstance(date, list):
