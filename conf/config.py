@@ -1,6 +1,5 @@
 from configparser import ConfigParser
 
-from common_functions.funcs import color_print
 from sup.adress import DATABASE_INI_PATH
 
 
@@ -18,9 +17,3 @@ def config(filename=DATABASE_INI_PATH, section="postgresql"):
             'Section {0} is not found in the {1} file.'.format(section, filename))
 
     return db
-
-## _______________________________________ TestCase 1
-
-# c = config()
-# print(c)
-# colprint(c)

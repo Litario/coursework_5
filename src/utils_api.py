@@ -1,11 +1,4 @@
-import json
-from pprint import pprint
-from icecream import ic
-from datetime import datetime
-
 import requests
-
-from sup.adress import WORK_JSON_PATH
 
 
 def get_employers_data(firms: list[str], per_page: int = 12) -> list[dict]:
@@ -30,32 +23,3 @@ def get_employers_data(firms: list[str], per_page: int = 12) -> list[dict]:
 
     # return response
     return data
-
-## _____________________________________________ TestCase
-
-firms = ['169209',  # ГУД ВУД
-         '64174',  # 2ГИС
-         '3344',  # ЛСР
-         '12550',  # ПИК
-         '1102601',  # Самолет
-         '2180488',  # ЭТАЛОН
-         '68268',  # Пионер
-         '1066018',  # Брусника
-         ]
-
-# dt = get_employers_data(firms)
-
-# pprint(dt,
-#        indent=1,
-#        stream=print(),
-#        depth=None,
-#        compact=False,
-#        sort_dicts=False
-#        )
-
-# with open(WORK_JSON_PATH, mode='w', encoding='utf-8') as file:
-#     json.dump(dt, file, ensure_ascii=False, indent=4)
-
-
-# for i in dt:
-#     print(i['vacancies'][0]['employer']['name'])

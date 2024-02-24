@@ -1,8 +1,5 @@
-from pprint import pprint
-
 import psycopg2
 
-from common_functions.funcs import color_print
 from conf.config import config
 
 
@@ -110,18 +107,6 @@ class DBManager:
             ORDER BY avg_salary DESC
         """)
 
-        # result = self.execute_query(f"""
-        #     SELECT employers.employer,
-        #         vacancy,
-        #         (salary_to + salary_from)/2 AS avg_salary
-        #     FROM vacancies
-        #         INNER JOIN employers USING(employer_id)
-        #     WHERE (salary_to + salary_from)/2 >
-        #         (SELECT AVG(salary_to/2 + salary_from/2) FROM vacancies)
-        #         WHERE salary_from > 0 AND salary_to > 0)
-        #     ORDER BY avg_salary DESC
-        # """)
-
         return result
 
     def get_vacancies_with_keyword(self, key_word: str) -> list[tuple[str, str]]:
@@ -143,39 +128,3 @@ class DBManager:
         """)
 
         return result
-
-## _________________________________________________________ TestCase
-
-data_base_name = 'headhunter'
-db = DBManager(data_base_name)
-# pprint(db.get_companies_and_vacancies_count(), sort_dicts=False)
-
-# print()
-# colprint(db.get_companies_and_vacancies_count())
-# pprint(db.get_companies_and_vacancies_count())
-
-# for tpl in db.get_companies_and_vacancies_count():
-#     print(tpl)
-#     # colprint(dict(tpl))
-
-
-# print()
-# pprint(db.get_all_vacancies(), sort_dicts=False)
-# print(len(db.get_all_vacancies()[0]))
-# colprint(db.get_all_vacancies())
-
-
-# print()
-# colprint(db.get_avg_salary())
-
-# for tpl in db.get_avg_salary():
-#     print(f"{tpl[1]:>6} :  {tpl[0]}")
-
-
-# print()
-# pprint(db.get_vacancies_with_higher_salary())
-# print(*[i for i in db.get_vacancies_with_higher_salary()], sep='\n')
-
-
-# print()
-# print(db.get_vacancies_with_keyword('менеджер'))
