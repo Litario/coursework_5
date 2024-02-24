@@ -1,8 +1,10 @@
+from datetime import datetime
+
 from sup.constants import NONCOLOR, YELLOW, GREEN
 
 
 def color_print(date: list) -> None:
-    """Печать словарей из списка"""
+    """Печатает цветные словари из списка"""
 
     if isinstance(date, list):
         for i in date:
@@ -25,3 +27,12 @@ def color_print(date: list) -> None:
 
     else:
         print('Доработать функцию.')
+
+
+def write_datetime(file_name: str, format: str) -> None:
+    """Записывает время создания БД в указанный файл."""
+
+    with open(file_name, mode='w') as file:
+        now = datetime.now()
+        db_create_datetime = datetime.strftime(now, format)
+        file.write(db_create_datetime)

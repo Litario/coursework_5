@@ -2,7 +2,7 @@ from pprint import pprint
 
 import psycopg2
 
-from common_functions.funcs_1 import color_print
+from common_functions.funcs import color_print
 from conf.config import config
 
 
@@ -64,17 +64,28 @@ class DBManager:
         """Получает среднюю зарплату по вакансиям."""
 
         result = self.execute_query(f"""
-            SELECT vacancy,
-            (salary_to + salary_from)/2 AS avg_salary
+            SELECT employers.employer,
+                vacancy,
+                (salary_to + salary_from)/2 AS avg_salary,
+                salary_currency
             FROM vacancies
+                INNER JOIN employers USING(employer_id)
             WHERE salary_from > 0 AND salary_to > 0 
             UNION
-            SELECT vacancy, salary_from AS avg_salary
+            SELECT employers.employer,
+                vacancy, 
+                salary_from AS avg_salary,
+                salary_currency
             FROM vacancies
+                INNER JOIN employers USING(employer_id)
             WHERE salary_from > 0
             UNION
-            SELECT vacancy, salary_to AS avg_salary
+            SELECT employers.employer,
+                vacancy, 
+                salary_to AS avg_salary,
+                salary_currency
             FROM vacancies
+                INNER JOIN employers USING(employer_id)
             WHERE salary_to > 0
             ORDER BY avg_salary {'DESC' if order_by else 'ASC'}
         """)
@@ -90,14 +101,26 @@ class DBManager:
         result = self.execute_query(f"""
             SELECT employers.employer,
                 vacancy,
-                (salary_to + salary_from)/2 AS avg_salary
+                (salary_to + salary_from)/2 AS avg_salary,
+                salary_currency
             FROM vacancies
                 INNER JOIN employers USING(employer_id)
             WHERE (salary_to + salary_from)/2 > 
-                (SELECT AVG(salary_to/2 + salary_from/2) FROM vacancies
-                WHERE salary_from > 0 AND salary_to > 0)
+                (SELECT AVG(salary_to/2 + salary_from/2) FROM vacancies)
             ORDER BY avg_salary DESC
         """)
+
+        # result = self.execute_query(f"""
+        #     SELECT employers.employer,
+        #         vacancy,
+        #         (salary_to + salary_from)/2 AS avg_salary
+        #     FROM vacancies
+        #         INNER JOIN employers USING(employer_id)
+        #     WHERE (salary_to + salary_from)/2 >
+        #         (SELECT AVG(salary_to/2 + salary_from/2) FROM vacancies)
+        #         WHERE salary_from > 0 AND salary_to > 0)
+        #     ORDER BY avg_salary DESC
+        # """)
 
         return result
 
